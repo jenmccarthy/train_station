@@ -18,4 +18,10 @@ describe 'Times' do
     expect(@test_times.stop_id).to eq @test_line.join_id
     expect(@test_times.times).to eq ['9:00 am', '10:00 am', '11:00 am']
   end
+
+  it 'will save the info in the Times class instance to the Times table.' do
+    expect(Times.all).to eq []
+    @test_times.save
+    expect(Times.all).to eq [@test_times]
+  end
 end
