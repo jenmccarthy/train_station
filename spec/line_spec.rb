@@ -18,4 +18,10 @@ describe 'Line' do
     test_line = Line.new({'name' => 'Red Line'})
     expect(test_line).to be_an_instance_of Line
   end
+
+  it 'will return the attributes of Line class' do
+    test_line = Line.new({'name' => 'Red Line'})
+    expect(test_line.name).to eq 'Red Line'
+  end
+
 end
