@@ -36,4 +36,8 @@ class Station
     results = DB.exec("UPDATE stations SET location = '#{input_location}' WHERE id = '#{self.id}';")
     @location = input_location
   end
+
+  def delete
+    DB.exec("DELETE FROM stations WHERE id = '#{self.id}';")
+  end
 end

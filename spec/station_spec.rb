@@ -50,4 +50,11 @@ describe 'Station' do
     expect(Station.all).to eq [test_station]
     expect(test_station.location).to eq '555 Broadway St'
   end
+
+  it 'will delete this station from the table' do
+    test_station = Station.new({'name' => 'Epicodus', 'location' => '123 Main St'})
+    test_station.save
+    test_station.delete
+    expect(Station.all).to eq []
+  end
 end
