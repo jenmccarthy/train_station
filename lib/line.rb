@@ -43,7 +43,7 @@ class Line
 
   def list_stations
     stations = []
-    results = DB.exec("SELECT * FROM lines_stations WHERE id = #{@join_id};")
+    results = DB.exec("SELECT * FROM lines_stations WHERE line_id = #{@id};")
     results.each do |result|
       station_id = result['station_id'].to_i
       station_rows = DB.exec("SELECT * FROM stations WHERE id = #{station_id};")
@@ -52,6 +52,19 @@ class Line
       end
     end
     stations
+  end
+
+  def get_pairs
+    output = []
+    results = DB.exec("SELECT * FROM lines_stations;")
+    results.each do |result|
+      ids = []
+      ids << result['id'].to_i
+      ids << result['line_id'].to_i
+      ids << result['station_id'].to_i
+      output << ids
+    end
+    output
   end
 
 end

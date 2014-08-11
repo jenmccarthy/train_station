@@ -6,7 +6,6 @@ class Station
     @name = attributes['name']
     @location = attributes['location']
     @id = attributes['id'].to_i
-    # @join_id = nil
   end
 
   def self.all
@@ -40,6 +39,7 @@ class Station
 
   def delete
     DB.exec("DELETE FROM stations WHERE id = '#{self.id}';")
+    DB.exec("DELETE FROM lines_stations WHERE station_id = '#{self.id}';")
   end
 
   def list_lines
