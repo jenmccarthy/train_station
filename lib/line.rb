@@ -1,10 +1,11 @@
 class Line
 
-  attr_reader :name, :id
+  attr_reader :name, :id, :join_id
 
   def initialize(attributes)
     @name = attributes['name']
     @id = attributes['id'].to_i
+    @join_id = nil
   end
 
   def self.all
@@ -34,4 +35,23 @@ class Line
   def delete
     DB.exec("DELETE FROM lines WHERE id = #{@id};")
   end
+
+  def add_to_line(input_station)
+    results = DB.exec("INSERT INTO lines_stations (line_id, station_id) VALUES ('#{@id}', '#{input_station.id}') RETURNING id;")
+    @join_id = results.first['id'].to_i
+  end
+
+  def list_stations
+    stations = []
+    results = DB.exec("SELECT * FROM lines_stations WHERE id = #{@join_id};")
+    results.each do |result|
+      station_id = result['station_id'].to_i
+      station_rows = DB.exec("SELECT * FROM stations WHERE id = #{station_id};")
+      station_rows.each do |station_row|
+        stations << Station.new(station_row)
+      end
+    end
+    stations
+  end
+
 end

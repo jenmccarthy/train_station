@@ -58,4 +58,13 @@ describe 'Station' do
     test_station.delete
     expect(Station.all).to eq []
   end
+
+  it 'will add a station to a particular line.' do
+    test_station = Station.new({'name' => 'Epicodus', 'location' => '123 Main St'})
+    test_station.save
+    test_line = Line.new({'name' => 'Red Line'})
+    test_line.save
+    test_line.add_to_line(test_station)
+    expect(test_line.list_stations).to eq [test_station]
+  end
 end
