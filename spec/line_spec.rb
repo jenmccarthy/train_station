@@ -24,4 +24,22 @@ describe 'Line' do
     expect(test_line.name).to eq 'Red Line'
   end
 
+  it 'will start with no Lines' do
+    expect(Line.all).to eq []
+  end
+
+  it 'will save a Line to the database.' do
+    test_line = Line.new({'name' => 'Red Line'})
+    test_line.save
+    expect(Line.all).to eq [test_line]
+  end
+
+  it 'will edit the name of an instance of Line class object and in the database' do
+    test_line = Line.new({'name' => 'Red Line'})
+    test_line.save
+    test_line.edit_name('Pink Line')
+    expect(Line.all).to eq [test_line]
+    expect(test_line.name).to eq 'Pink Line'
+  end
+
 end

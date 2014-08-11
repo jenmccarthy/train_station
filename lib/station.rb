@@ -28,8 +28,8 @@ class Station
   end
 
   def edit_name(input_name)
-    results = DB.exec("UPDATE stations SET name = '#{input_name}' WHERE id = '#{self.id}';")
     @name = input_name
+    results = DB.exec("UPDATE stations SET name = '#{@name}' WHERE id = '#{self.id}';")
   end
 
   def edit_location(input_location)
