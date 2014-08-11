@@ -42,8 +42,16 @@ class Station
     DB.exec("DELETE FROM stations WHERE id = '#{self.id}';")
   end
 
-  # def add_to_line(input_line)
-  #   results = DB.exec("INSERT INTO lines_stations (line_id, station_id) VALUES ('#{input_line.id}', '#{@id}') RETURNING id;")
-  #   @join_id = results.first['id'].to_i
-  # end
+  def list_lines
+    lines = []
+    results = DB.exec("SELECT * FROM lines_stations WHERE station_id = #{@id};")
+    results.each do |result|
+      line_id = result['line_id'].to_i
+      line_rows = DB.exec("SELECT * FROM lines WHERE id = #{line_id};")
+      line_rows.each do |line_row|
+        lines << Line.new(line_row)
+      end
+    end
+    lines
+  end
 end
