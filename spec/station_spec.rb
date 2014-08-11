@@ -1,20 +1,6 @@
-require 'rspec'
-require 'station.rb'
-require 'line.rb'
-require 'pry'
-require 'pg'
-
-DB = PG.connect({:dbname => 'train_system'})
-
-RSpec.configure do |config|
-  config.after(:each) do
-    DB.exec("DELETE FROM stations *;")
-    DB.exec("DELETE FROM lines_stations *;")
-  end
-end
+require 'rspec_helper'
 
 describe 'Station' do
-
 
   it 'will initialize with a name and location' do
     test_station = Station.new({'name' => 'Epicodus', 'location' => '123 Main St'})
