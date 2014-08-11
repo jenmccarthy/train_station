@@ -34,4 +34,12 @@ describe 'Station' do
     test_station.save
     expect(Station.all).to eq [test_station]
   end
+
+  it 'will save a new name for the current Station to the object and the database.' do
+    test_station = Station.new({'name' => 'Epicodus', 'location' => '123 Main St'})
+    test_station.save
+    test_station.edit_name('New_Epicodus')
+    expect(Station.all).to eq [test_station]
+    expect(test_station.name).to eq 'New_Epicodus'
+  end
 end
