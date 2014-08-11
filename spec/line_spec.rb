@@ -42,4 +42,12 @@ describe 'Line' do
     expect(test_line.name).to eq 'Pink Line'
   end
 
+  it 'will delete this station from the database' do
+    test_line = Line.new({'name' => 'Red Line'})
+    test_line.save
+    expect(Line.all).to eq [test_line]
+    test_line.delete
+    expect(Line.all).to eq []
+  end
+
 end

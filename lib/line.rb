@@ -30,4 +30,8 @@ class Line
     @name = new_name
     DB.exec("UPDATE lines SET name = '#{@name}' WHERE id = #{@id};")
   end
+
+  def delete
+    DB.exec("DELETE FROM lines WHERE id = #{@id};")
+  end
 end
