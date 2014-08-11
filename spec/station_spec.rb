@@ -1,5 +1,6 @@
 require 'rspec'
 require 'station.rb'
+require 'line.rb'
 require 'pry'
 require 'pg'
 
