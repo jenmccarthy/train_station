@@ -59,4 +59,14 @@ class Times
     times
   end
 
+  def get_station_times(line)
+    output_stations_with_times = {}
+    stations = line.list_stations
+    stations.each do |station|
+      times = self.get_times(station, line)
+      output_stations_with_times[station.id] = times
+    end
+    output_stations_with_times
+  end
+
 end

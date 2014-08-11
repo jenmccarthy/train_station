@@ -29,4 +29,9 @@ describe 'Times' do
     @test_times.save
     expect(@test_times.get_times(@test_station, @test_line)).to eq ['9:00 am', '10:00 am', '11:00 am']
   end
+
+  it 'will retun all times for all stations that a line goes through' do
+    @test_times.save
+    expect(@test_times.get_station_times(@test_line)).to eq ({@test_station.id => ['9:00 am', '10:00 am', '11:00 am']})
+  end
 end
