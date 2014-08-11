@@ -17,4 +17,8 @@ describe 'Station' do
     expect(test_station.name).to eq 'Epicodus'
     expect(test_station.location).to eq '123 Main St'
   end
+
+  it 'will return all instances of Station class' do
+    expect(Station.all).to eq []
+  end
 end

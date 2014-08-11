@@ -7,4 +7,10 @@ class Station
     @location = attributes['location']
     @id = attributes['id'].to_i
   end
+
+  def self.all
+    stations = []
+
+    stations
+  end
 end
