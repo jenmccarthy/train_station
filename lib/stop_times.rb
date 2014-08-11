@@ -1,3 +1,5 @@
+require 'Chronic'
+
 class Times
 
   attr_reader :stop_id, :times, :ids
@@ -45,7 +47,7 @@ class Times
     @times == another_time.times && @stop_id == another_time.stop_id && @ids == another_time.ids
   end
 
-  def get_times(input_station, input_line)
+  def self.get_times(input_station, input_line)
     stop_id = nil
     times = []
 
@@ -63,10 +65,25 @@ class Times
     output_stations_with_times = {}
     stations = line.list_stations
     stations.each do |station|
-      times = self.get_times(station, line)
+      times = Times.get_times(station, line)
       output_stations_with_times[station.id] = times
     end
     output_stations_with_times
+  end
+
+  def self.get_all_next_times(user_station, user_time)
+    output_lines_with_times = {}
+    lines = user_station.list_lines
+    lines.each do |line|
+      times = Times.get_times(user_station, line)
+      times.each do |time|
+        if Chronic.parse(user_time) < Chronic.parse(time)
+          output_lines_with_times[line.id] = time
+          break
+        end
+      end
+    end
+    output_lines_with_times
   end
 
 end

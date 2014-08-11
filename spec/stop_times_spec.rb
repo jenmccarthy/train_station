@@ -27,11 +27,26 @@ describe 'Times' do
 
   it 'will return all the times for a given station and line.' do
     @test_times.save
-    expect(@test_times.get_times(@test_station, @test_line)).to eq ['9:00 am', '10:00 am', '11:00 am']
+    expect(Times.get_times(@test_station, @test_line)).to eq ['9:00 am', '10:00 am', '11:00 am']
   end
 
-  it 'will retun all times for all stations that a line goes through' do
+  it 'will return all times for all stations that a line goes through' do
     @test_times.save
     expect(@test_times.get_station_times(@test_line)).to eq ({@test_station.id => ['9:00 am', '10:00 am', '11:00 am']})
+  end
+
+  it 'will return the next available time for each line at a given station.' do
+    @test_times.save
+    expect(Times.get_all_next_times(@test_station, '10:30 am')).to eq ({@test_line.id => '11:00 am'})
+  end
+
+  it 'will return the next available time for each line at a given station.' do
+    @test_times.save
+    @test_line2 = Line.new({'name' => 'Blue Line'})
+    @test_line2.save
+    @test_line2.add_to_line(@test_station)
+    @test_times2 = Times.new({'stop_id' => @test_line2.join_id, 'times' => ['9:30 am', '10:30 am', '11:30 am']})
+    @test_times2.save
+    expect(Times.get_all_next_times(@test_station, '10:15 am')).to eq ({@test_line.id => '11:00 am', @test_line2.id => '10:30 am'})
   end
 end
