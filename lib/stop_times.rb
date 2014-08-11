@@ -45,4 +45,18 @@ class Times
     @times == another_time.times && @stop_id == another_time.stop_id && @ids == another_time.ids
   end
 
+  def get_times(input_station, input_line)
+    stop_id = nil
+    times = []
+
+    results = DB.exec("SELECT * FROM lines_stations WHERE station_id = #{input_station.id} and line_id = #{input_line.id}")
+    stop_id = results.first['id']
+
+    results = DB.exec("SELECT * FROM times WHERE stop_id = #{stop_id};")
+    results.each do |result|
+      times << result['time']
+    end
+    times
+  end
+
 end

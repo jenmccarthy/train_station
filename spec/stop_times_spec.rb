@@ -24,4 +24,9 @@ describe 'Times' do
     @test_times.save
     expect(Times.all).to eq [@test_times]
   end
+
+  it 'will return all the times for a given station and line.' do
+    @test_times.save
+    expect(@test_times.get_times(@test_station, @test_line)).to eq ['9:00 am', '10:00 am', '11:00 am']
+  end
 end
